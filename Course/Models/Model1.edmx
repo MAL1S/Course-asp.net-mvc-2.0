@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище UniversityDB2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Journal">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject_ID" Type="int" Nullable="false" />
+          <Property Name="Student_ID" Type="int" Nullable="false" />
+          <Property Name="Mark" Type="varchar" MaxLength="1" />
+          <Property Name="MarkDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="40" />
+          <Property Name="Adress" Type="varchar" MaxLength="30" />
+          <Property Name="PhoneNumber" Type="bigint" />
+          <Property Name="Caretaker" Type="varchar" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="TeacherName" Type="varchar" MaxLength="40" />
+        </EntityType>
+        <Association Name="FK__Journal__Student__29572725">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="Student_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Journal__Subject__286302EC">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="Subject_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetFirstTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dateFrom" Type="date" Mode="In" />
+          <Parameter Name="dateTo" Type="date" Mode="In" />
+        </Function>
+        <Function Name="GetSecondTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maxFives" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InflateJournalData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="InflateStudentData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="InflateSubjectData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Journal_D" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RecordID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Journal_I" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Subject_ID" Type="int" Mode="In" />
+          <Parameter Name="Student_ID" Type="int" Mode="In" />
+          <Parameter Name="Mark" Type="varchar" Mode="In" />
+          <Parameter Name="MarkDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Journal_S" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Journal_U" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RecordID" Type="int" Mode="In" />
+          <Parameter Name="Subject_ID" Type="int" Mode="In" />
+          <Parameter Name="Student_ID" Type="int" Mode="In" />
+          <Parameter Name="Mark" Type="varchar" Mode="In" />
+          <Parameter Name="MarkDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Student_D" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Student_I" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="address" Type="varchar" Mode="In" />
+          <Parameter Name="phoneNumber" Type="bigint" Mode="In" />
+          <Parameter Name="parentsName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Student_S" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Student_U" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="address" Type="varchar" Mode="In" />
+          <Parameter Name="phoneNumber" Type="bigint" Mode="In" />
+          <Parameter Name="parentsName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Subject_D" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Subject_I" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SubjectName" Type="varchar" Mode="In" />
+          <Parameter Name="TeacherName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Subject_S" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Subject_U" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="subjectName" Type="varchar" Mode="In" />
+          <Parameter Name="teacherName" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище UniversityDB2ModelContainer">
+          <EntitySet Name="Journal" EntityType="Self.Journal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Journal__Student__29572725" Association="Self.FK__Journal__Student__29572725">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Journal__Subject__286302EC" Association="Self.FK__Journal__Subject__286302EC">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UniversityDB2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Journal">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject_ID" Type="Int32" Nullable="false" />
+          <Property Name="Student_ID" Type="Int32" Nullable="false" />
+          <Property Name="Mark" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="MarkDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Journal__Student__29572725" FromRole="Journal" ToRole="Student" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__Journal__Subject__286302EC" FromRole="Journal" ToRole="Subject" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="StudentName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Adress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="Int64" />
+          <Property Name="Caretaker" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Journal" Relationship="Self.FK__Journal__Student__29572725" FromRole="Student" ToRole="Journal" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TeacherName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Journal" Relationship="Self.FK__Journal__Subject__286302EC" FromRole="Subject" ToRole="Journal" />
+        </EntityType>
+        <Association Name="FK__Journal__Student__29572725">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="Student_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Journal__Subject__286302EC">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
+          <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Journal">
+              <PropertyRef Name="Subject_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UniversityDB2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Journal" EntityType="Self.Journal" />
+          <EntitySet Name="Student" EntityType="Self.Student" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" />
+          <AssociationSet Name="FK__Journal__Student__29572725" Association="Self.FK__Journal__Student__29572725">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Journal__Subject__286302EC" Association="Self.FK__Journal__Subject__286302EC">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Journal" EntitySet="Journal" />
+          </AssociationSet>
+          <FunctionImport Name="GetFirstTask" ReturnType="Collection(UniversityDB2Model.GetFirstTask_Result)">
+            <Parameter Name="dateFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="dateTo" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetSecondTask" ReturnType="Collection(UniversityDB2Model.GetSecondTask_Result)">
+            <Parameter Name="maxFives" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InflateJournalData" />
+          <FunctionImport Name="InflateStudentData" />
+          <FunctionImport Name="InflateSubjectData" />
+          <FunctionImport Name="Journal_D">
+            <Parameter Name="RecordID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Journal_I">
+            <Parameter Name="Subject_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Mark" Mode="In" Type="String" />
+            <Parameter Name="MarkDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Journal_S" ReturnType="Collection(UniversityDB2Model.Journal_S_Result)" />
+          <FunctionImport Name="Journal_U">
+            <Parameter Name="RecordID" Mode="In" Type="Int32" />
+            <Parameter Name="Subject_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Mark" Mode="In" Type="String" />
+            <Parameter Name="MarkDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Student_D">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Student_I">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="phoneNumber" Mode="In" Type="Int64" />
+            <Parameter Name="parentsName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Student_S" ReturnType="Collection(UniversityDB2Model.Student_S_Result)" />
+          <FunctionImport Name="Student_U">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="phoneNumber" Mode="In" Type="Int64" />
+            <Parameter Name="parentsName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Subject_D">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Subject_I">
+            <Parameter Name="SubjectName" Mode="In" Type="String" />
+            <Parameter Name="TeacherName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Subject_S" ReturnType="Collection(UniversityDB2Model.Subject_S_Result)" />
+          <FunctionImport Name="Subject_U">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="subjectName" Mode="In" Type="String" />
+            <Parameter Name="teacherName" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetFirstTask_Result">
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="40" />
+          <Property Type="DateTime" Name="MarkDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSecondTask_Result">
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="Name1" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="Journal_S_Result">
+          <Property Type="Int32" Name="RecordID" Nullable="false" />
+          <Property Type="Int32" Name="Subject_ID" Nullable="false" />
+          <Property Type="Int32" Name="Student_ID" Nullable="false" />
+          <Property Type="String" Name="Mark" Nullable="true" MaxLength="1" />
+          <Property Type="DateTime" Name="MarkDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Student_S_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="Adress" Nullable="true" MaxLength="30" />
+          <Property Type="Int64" Name="PhoneNumber" Nullable="true" />
+          <Property Type="String" Name="Caretaker" Nullable="true" MaxLength="80" />
+        </ComplexType>
+        <ComplexType Name="Subject_S_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="TeacherName" Nullable="true" MaxLength="40" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище UniversityDB2ModelContainer" CdmEntityContainer="UniversityDB2Entities">
+          <EntitySetMapping Name="Journal">
+            <EntityTypeMapping TypeName="UniversityDB2Model.Journal">
+              <MappingFragment StoreEntitySet="Journal">
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+                <ScalarProperty Name="Subject_ID" ColumnName="Subject_ID" />
+                <ScalarProperty Name="Student_ID" ColumnName="Student_ID" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="MarkDate" ColumnName="MarkDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="UniversityDB2Model.Journal">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="Хранилище UniversityDB2Model.Journal_I">
+                  <ScalarProperty Name="MarkDate" ParameterName="MarkDate" />
+                  <ScalarProperty Name="Mark" ParameterName="Mark" />
+                  <ScalarProperty Name="Student_ID" ParameterName="Student_ID" />
+                  <ScalarProperty Name="Subject_ID" ParameterName="Subject_ID" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="Хранилище UniversityDB2Model.Journal_U">
+                  <ScalarProperty Name="MarkDate" ParameterName="MarkDate" Version="Current" />
+                  <ScalarProperty Name="Mark" ParameterName="Mark" Version="Current" />
+                  <ScalarProperty Name="Student_ID" ParameterName="Student_ID" Version="Current" />
+                  <ScalarProperty Name="Subject_ID" ParameterName="Subject_ID" Version="Current" />
+                  <ScalarProperty Name="RecordID" ParameterName="RecordID" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="Хранилище UniversityDB2Model.Journal_D">
+                  <ScalarProperty Name="RecordID" ParameterName="RecordID" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student">
+            <EntityTypeMapping TypeName="UniversityDB2Model.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StudentName" ColumnName="Name" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Caretaker" ColumnName="Caretaker" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="UniversityDB2Model.Student">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="Хранилище UniversityDB2Model.Student_I">
+                  <ScalarProperty Name="Caretaker" ParameterName="parentsName" />
+                  <ScalarProperty Name="PhoneNumber" ParameterName="phoneNumber" />
+                  <ScalarProperty Name="Adress" ParameterName="address" />
+                  <ScalarProperty Name="ID" ParameterName="Id" />
+                  <ScalarProperty Name="StudentName" ParameterName="Name" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="Хранилище UniversityDB2Model.Student_U" >
+                  <ScalarProperty Name="Caretaker" ParameterName="parentsName" Version="Current" />
+                  <ScalarProperty Name="PhoneNumber" ParameterName="phoneNumber" Version="Current" />
+                  <ScalarProperty Name="Adress" ParameterName="address" Version="Current" />
+                  <ScalarProperty Name="StudentName" ParameterName="name" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="id" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="Хранилище UniversityDB2Model.Student_D" >
+                  <ScalarProperty Name="ID" ParameterName="id" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subject">
+            <EntityTypeMapping TypeName="UniversityDB2Model.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SubjectName" ColumnName="Name" />
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="UniversityDB2Model.Subject">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="Хранилище UniversityDB2Model.Subject_I">
+                  <ScalarProperty Name="TeacherName" ParameterName="TeacherName" />
+                  <ScalarProperty Name="SubjectName" ParameterName="SubjectName" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="Хранилище UniversityDB2Model.Subject_U" >
+                  <ScalarProperty Name="TeacherName" ParameterName="teacherName" Version="Current" />
+                  <ScalarProperty Name="SubjectName" ParameterName="subjectName" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="id" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="Хранилище UniversityDB2Model.Subject_D">
+                  <ScalarProperty Name="ID" ParameterName="ID" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetFirstTask" FunctionName="Хранилище UniversityDB2Model.GetFirstTask">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversityDB2Model.GetFirstTask_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MarkDate" ColumnName="MarkDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetSecondTask" FunctionName="Хранилище UniversityDB2Model.GetSecondTask">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversityDB2Model.GetSecondTask_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Name1" ColumnName="Name1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InflateJournalData" FunctionName="Хранилище UniversityDB2Model.InflateJournalData" />
+          <FunctionImportMapping FunctionImportName="InflateStudentData" FunctionName="Хранилище UniversityDB2Model.InflateStudentData" />
+          <FunctionImportMapping FunctionImportName="InflateSubjectData" FunctionName="Хранилище UniversityDB2Model.InflateSubjectData" />
+          <FunctionImportMapping FunctionImportName="Journal_D" FunctionName="Хранилище UniversityDB2Model.Journal_D" />
+          <FunctionImportMapping FunctionImportName="Journal_I" FunctionName="Хранилище UniversityDB2Model.Journal_I" />
+          <FunctionImportMapping FunctionImportName="Journal_S" FunctionName="Хранилище UniversityDB2Model.Journal_S">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversityDB2Model.Journal_S_Result">
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+                <ScalarProperty Name="Subject_ID" ColumnName="Subject_ID" />
+                <ScalarProperty Name="Student_ID" ColumnName="Student_ID" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="MarkDate" ColumnName="MarkDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Journal_U" FunctionName="Хранилище UniversityDB2Model.Journal_U" />
+          <FunctionImportMapping FunctionImportName="Student_D" FunctionName="Хранилище UniversityDB2Model.Student_D" />
+          <FunctionImportMapping FunctionImportName="Student_I" FunctionName="Хранилище UniversityDB2Model.Student_I" />
+          <FunctionImportMapping FunctionImportName="Student_S" FunctionName="Хранилище UniversityDB2Model.Student_S">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversityDB2Model.Student_S_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Caretaker" ColumnName="Caretaker" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Student_U" FunctionName="Хранилище UniversityDB2Model.Student_U" />
+          <FunctionImportMapping FunctionImportName="Subject_D" FunctionName="Хранилище UniversityDB2Model.Subject_D" />
+          <FunctionImportMapping FunctionImportName="Subject_I" FunctionName="Хранилище UniversityDB2Model.Subject_I" />
+          <FunctionImportMapping FunctionImportName="Subject_S" FunctionName="Хранилище UniversityDB2Model.Subject_S">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="UniversityDB2Model.Subject_S_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Subject_U" FunctionName="Хранилище UniversityDB2Model.Subject_U" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

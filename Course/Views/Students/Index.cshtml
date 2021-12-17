@@ -1,0 +1,78 @@
+﻿@model PagedList.IPagedList<Course.Models.Student>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Students  @Html.ActionLink("Create new", "Create", null, null, new { @class = "btn btn-primary" })</h2>
+
+<div class="alert alert-info">
+    @using (Html.BeginForm("Index", "Students", FormMethod.Get))
+    {
+        <div class="row mb-3 container">
+            <div class="col-auto">
+                <div class="input-group">
+                    <div class="input-group-text">Find by student personal id:</div>
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter1 as string, new { @class = "form-control", @placeholder = "Student id" })
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="input-group ">
+                    <div class="input-group-text">Find by name:</div>
+                    @Html.TextBox("SearchKeeperString", ViewBag.CurrentFilter as string, new { @class = "form-control", @placeholder = "Student name" })
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary col-auto">Filter</button>
+        </div>
+    }
+    @using (Html.BeginForm("Index", "Students", FormMethod.Get))
+    {
+        <input type="submit" class="btn btn-primary" value="Clear filter" />
+    }
+
+</div>
+
+@if (Model.PageCount == 0)
+{
+    <div class="alert alert-danger text-center" role="alert">
+        <h1>No results found ¯\_(ツ)_/¯</h1>
+    </div>
+}
+
+@if (Model.PageCount != 0)
+{
+    <table class="table">
+        <tr>
+            <th scope="col">
+                @Html.ActionLink("Number", "Index", new { sortOrder = ViewBag.NumberSortParm, currentFilter = ViewBag.CurrentFilter, currentFilter1 = ViewBag.CurrentFilter1 })
+            </th>
+            <th scope="col">Student</th>
+            <th scope="col"> Edit </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StudentName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+<hr />
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, currentFilter1 = ViewBag.CurrentFilter1 }))
