@@ -1,0 +1,52 @@
+﻿@model PagedList.IPagedList<Course.Models.GetFirstTask_Result>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Statistics about absent students</h2>
+
+
+@if (!TempData["msg"].Equals(""))
+{
+    <h1>Результатов не найдено </h1>
+}
+
+@if (TempData["msg"].Equals(""))
+{
+    <table class="table">
+        <tr>
+            <th>
+                Student name
+            </th>
+            <th>
+                Absent date
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.StudentName)</td>
+                <td> @Html.DisplayFor(modelItem => item.MarkDate)</td>
+            </tr>
+        }
+    </table>
+
+    <div class="row">
+        <div class="col-auto">
+            <form asp-action="Index" method="get">
+                @Html.PagedListPager(Model, page => Url.Action("Details", new { page, SizePage = @Model.PageSize, oldTo = ViewBag.oldTo, oldFrom =  ViewBag.oldFrom}))
+            </form>
+        </div>
+        <div class="col-auto align-self-center">
+            <span class="align-middle">Страница:  @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)  из  @Model.PageCount</span>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Request", "Index")
+</div>

@@ -13,7 +13,7 @@ namespace Course.Models
     
     public partial class GetSecondTask_Result
     {
-        public string Name { get; set; }
-        public string Name1 { get; set; }
+        public string StudentName { get; set; }
+        public string SubjectName { get; set; }
     }
 }

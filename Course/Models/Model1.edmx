@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище UniversityDB2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище UniversityDB2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Journal">
           <Key>
             <PropertyRef Name="RecordID" />
@@ -20,7 +20,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="40" />
+          <Property Name="StudentName" Type="varchar" MaxLength="40" />
           <Property Name="Adress" Type="varchar" MaxLength="30" />
           <Property Name="PhoneNumber" Type="bigint" />
           <Property Name="Caretaker" Type="varchar" MaxLength="80" />
@@ -30,7 +30,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="SubjectName" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="TeacherName" Type="varchar" MaxLength="40" />
         </EntityType>
         <Association Name="FK__Journal__Student__29572725">
@@ -128,8 +128,7 @@
             <End Role="Journal" EntitySet="Journal" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UniversityDB2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -142,8 +141,8 @@
           <Property Name="Student_ID" Type="Int32" Nullable="false" />
           <Property Name="Mark" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="MarkDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Student" Relationship="Self.FK__Journal__Student__29572725" FromRole="Journal" ToRole="Student" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK__Journal__Subject__286302EC" FromRole="Journal" ToRole="Subject" />
+          <NavigationProperty Name="Student" Relationship="UniversityDB2Model.FK__Journal__Student__49C3F6B7" FromRole="Journal" ToRole="Student" />
+          <NavigationProperty Name="Subject" Relationship="UniversityDB2Model.FK__Journal__Subject__4AB81AF0" FromRole="Journal" ToRole="Subject" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -154,7 +153,7 @@
           <Property Name="Adress" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="PhoneNumber" Type="Int64" />
           <Property Name="Caretaker" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Journal" Relationship="Self.FK__Journal__Student__29572725" FromRole="Student" ToRole="Journal" />
+          <NavigationProperty Name="Journal" Relationship="UniversityDB2Model.FK__Journal__Student__49C3F6B7" FromRole="Student" ToRole="Journal" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -163,9 +162,9 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubjectName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TeacherName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Journal" Relationship="Self.FK__Journal__Subject__286302EC" FromRole="Subject" ToRole="Journal" />
+          <NavigationProperty Name="Journal" Relationship="UniversityDB2Model.FK__Journal__Subject__4AB81AF0" FromRole="Subject" ToRole="Journal" />
         </EntityType>
-        <Association Name="FK__Journal__Student__29572725">
+        <Association Name="FK__Journal__Student__49C3F6B7">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -177,7 +176,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Journal__Subject__286302EC">
+        <Association Name="FK__Journal__Subject__4AB81AF0">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="Journal" Type="Self.Journal" Multiplicity="*" />
           <ReferentialConstraint>
@@ -193,11 +192,11 @@
           <EntitySet Name="Journal" EntityType="Self.Journal" />
           <EntitySet Name="Student" EntityType="Self.Student" />
           <EntitySet Name="Subject" EntityType="Self.Subject" />
-          <AssociationSet Name="FK__Journal__Student__29572725" Association="Self.FK__Journal__Student__29572725">
+          <AssociationSet Name="FK__Journal__Student__49C3F6B7" Association="UniversityDB2Model.FK__Journal__Student__49C3F6B7">
             <End Role="Student" EntitySet="Student" />
             <End Role="Journal" EntitySet="Journal" />
           </AssociationSet>
-          <AssociationSet Name="FK__Journal__Subject__286302EC" Association="Self.FK__Journal__Subject__286302EC">
+          <AssociationSet Name="FK__Journal__Subject__4AB81AF0" Association="UniversityDB2Model.FK__Journal__Subject__4AB81AF0">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="Journal" EntitySet="Journal" />
           </AssociationSet>
@@ -206,13 +205,13 @@
             <Parameter Name="dateTo" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetSecondTask" ReturnType="Collection(UniversityDB2Model.GetSecondTask_Result)">
-            <Parameter Name="maxFives" Mode="In" Type="Int32" />
+          <Parameter Name="maxFives" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InflateJournalData" />
           <FunctionImport Name="InflateStudentData" />
           <FunctionImport Name="InflateSubjectData" />
           <FunctionImport Name="Journal_D">
-            <Parameter Name="RecordID" Mode="In" Type="Int32" />
+          <Parameter Name="RecordID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Journal_I">
             <Parameter Name="Subject_ID" Mode="In" Type="Int32" />
@@ -229,7 +228,7 @@
             <Parameter Name="MarkDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Student_D">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Student_I">
             <Parameter Name="Id" Mode="In" Type="Int32" />
@@ -247,7 +246,7 @@
             <Parameter Name="parentsName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Subject_D">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Subject_I">
             <Parameter Name="SubjectName" Mode="In" Type="String" />
@@ -327,8 +326,8 @@
           <EntitySetMapping Name="Student">
             <EntityTypeMapping TypeName="UniversityDB2Model.Student">
               <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StudentName" ColumnName="Name" />
                 <ScalarProperty Name="Adress" ColumnName="Adress" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Caretaker" ColumnName="Caretaker" />
@@ -359,8 +358,8 @@
           <EntitySetMapping Name="Subject">
             <EntityTypeMapping TypeName="UniversityDB2Model.Subject">
               <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SubjectName" ColumnName="Name" />
                 <ScalarProperty Name="TeacherName" ColumnName="TeacherName" />
               </MappingFragment>
             </EntityTypeMapping>

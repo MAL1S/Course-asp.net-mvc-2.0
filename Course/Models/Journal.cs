@@ -25,7 +25,7 @@ namespace Course.Models
 
         [Display(Name = "Оценка")]
         [Required(ErrorMessage = "Поле должно быть заполнено")]
-        [RegularExpression(@"[0,5]?", ErrorMessage = "Некорректная оценка")]    
+        [RegularExpression(@"[0-5]?", ErrorMessage = "Некорректная оценка")]
         public string Mark { get; set; }
 
         [Display(Name = "Дата оценки")]
@@ -33,7 +33,8 @@ namespace Course.Models
         [DataType(DataType.Date)]
         //[Range(typeof(DateTime), "1/1/2010", "1/1/2022",
         //ErrorMessage = "Value for \"{0}\" must be between {1} and {2}")]
-        public DateTime MarkDate {
+        public DateTime MarkDate
+        {
             /*get
             {
                 return MarkDate;

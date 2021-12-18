@@ -13,7 +13,7 @@ namespace Course.Models
     
     public partial class GetFirstTask_Result
     {
-        public string Name { get; set; }
+        public string StudentName { get; set; }
         public Nullable<System.DateTime> MarkDate { get; set; }
     }
 }

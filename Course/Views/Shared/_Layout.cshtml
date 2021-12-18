@@ -13,11 +13,12 @@
         <div class="container">
             <div class="collapse navbar-collapse">
                 <ul class="nav nav-tabs">
-                    <!--ViewContext.RouteData.Values["Controller"].ToString() == "ShippingDocuments"-->
                     <li class="nav-item">@Html.ActionLink("Home page", "Index", "Home", new { area = "" }, new { @class = Request.Url.GetLeftPart(UriPartial.Path).Contains("Home") ? "nav-link active" : "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Students", "Index", "Students", new { area = "" }, new { @class = Request.Url.GetLeftPart(UriPartial.Path).Contains("Students") ? "nav-link active" : "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Subjects", "Index", "Subjects", new { area = "" }, new { @class = Request.Url.GetLeftPart(UriPartial.Path).Contains("Subjects") ? "nav-link active" : "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Journal", "Index", "Journals", new { area = "" }, new { @class = Request.Url.GetLeftPart(UriPartial.Path).Contains("Journals") ? "nav-link active" : "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Late stat", "Index", "LateStat", new { area = "" }, new { @class = Request.Url.GetLeftPart(UriPartial.Path).Contains("LateStat") ? "nav-link active" : "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Fives stat", "Index", "FivesStat", new { area = "" }, new { @class = Request.Url.GetLeftPart(UriPartial.Path).Contains("FivesStat") ? "nav-link active" : "nav-link" })</li>
                 </ul>
             </div>
         </div>

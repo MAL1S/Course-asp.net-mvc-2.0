@@ -15,6 +15,7 @@ namespace UD1.Views
     public class JournalsController : Controller
     {
         private UniversityDB2Entities db = new UniversityDB2Entities();
+        //@Html.ActionLink("Find", "Details", null, null, new { @class = "btn btn-primary" })
 
         // GET: Journals
         public ViewResult Index(string sortOrder, string currentFilter, string CurrentFilter1, string SearchKeeperString, string searchString, int? page)
@@ -93,20 +94,31 @@ namespace UD1.Views
         public ActionResult Create([Bind(Include = "RecordID,Subject_ID,Student_ID,Mark,MarkDate")] Journal journal)
         {
             DateTime d1 = new DateTime(2010, 1, 1, 0, 0, 0);
-            DateTime d2 = new DateTime(2022, 1, 1, 0, 0, 0); 
+            DateTime d2 = new DateTime(2022, 1, 1, 0, 0, 0);
+            bool flag = false;
 
             if (ModelState.IsValid)
             {
                 try
-                {   if (!(journal.MarkDate.Date > d1 && journal.MarkDate.Date < d2)) throw new DbUpdateException("Неправильная дата");
+                {   if (!(journal.MarkDate.Date > d1 && journal.MarkDate.Date < d2))
+                    {
+                        flag = true;
+                        throw new DbUpdateException();
+                    }
                     db.Journal.Add(journal);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 catch (DbUpdateException ex)
                 {
-                    //ModelState.AddModelError("", "Error: " + ex.InnerException.InnerException.Message);
-                    ModelState.AddModelError("", "Клиента не существует");
+                    
+                    if (flag)
+                    {
+                        ModelState.AddModelError("", "Неверная дата. Должна быть между 01.01.2010 и 01.01.2022");
+                    } else
+                    {
+                        ModelState.AddModelError("", "Error: " + ex.InnerException.InnerException.Message);
+                    }
                 }
             }
 
@@ -137,13 +149,34 @@ namespace UD1.Views
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "RecordID,Subject_ID,Student_ID,Mark,MarkDate")] Journal journal)
         {
-            if (ModelState.IsValid)
+            DateTime d1 = new DateTime(2010, 1, 1, 0, 0, 0);
+            DateTime d2 = new DateTime(2022, 1, 1, 0, 0, 0);
+            bool flag = false;
+
+            try
             {
+                if (!(journal.MarkDate.Date > d1 && journal.MarkDate.Date < d2))
+                {
+                    flag = true;
+                    throw new DbUpdateException();
+                }
                 db.Entry(journal).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-           // ViewBag.Subject_ID = new SelectList(db.Subject, "ID", "SubjectTeacher", journal.Subject_ID);
+            catch (DbUpdateException ex)
+            {
+
+                if (flag)
+                {
+                    ModelState.AddModelError("", "Неверная дата. Должна быть между 01.01.2010 и 01.01.2022");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Error: " + ex.InnerException.InnerException.Message);
+                }
+            }
+            ViewBag.Subject_ID = new SelectList(db.Subject, "ID", "SubjectTeacher", journal.Subject_ID);
             return View(journal);
         }
 

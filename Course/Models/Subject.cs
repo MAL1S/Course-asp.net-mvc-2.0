@@ -11,7 +11,7 @@ namespace Course.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Subject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,12 +19,12 @@ namespace Course.Models
         {
             this.Journal = new HashSet<Journal>();
         }
-    
+
         public int ID { get; set; }
 
         public string SubjectName { get; set; }
         public string TeacherName { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Journal> Journal { get; set; }
 

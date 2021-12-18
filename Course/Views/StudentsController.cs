@@ -130,11 +130,15 @@ namespace Course.Views
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,StudentName,Adress,PhoneNumber,Caretaker")] Student student)
         {
-            if (ModelState.IsValid)
+            try
             {
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+            }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("", "Error: " + ex.InnerException.InnerException.Message);
             }
             return View(student);
         }
